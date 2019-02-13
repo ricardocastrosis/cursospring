@@ -1,14 +1,30 @@
 package com.curso.acursospring;
 
+import com.curso.acursospring.domain.Categoria;
+import com.curso.acursospring.repositories.CategoriaRepository;
+import java.util.Arrays;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AcursoSpringApplication {
+public class AcursoSpringApplication implements CommandLineRunner{
 
-	public static void main(String[] args) {
-		SpringApplication.run(AcursoSpringApplication.class, args);
-	}
+    @Autowired
+    private CategoriaRepository repo;
+    
+    public static void main(String[] args) {
+            SpringApplication.run(AcursoSpringApplication.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        Categoria cat1 = new Categoria(null, "Informática");
+        Categoria cat2 = new Categoria(null, "Escritório");
+        
+        repo.saveAll(Arrays.asList(cat1, cat2));
+    }
 
 }
 
