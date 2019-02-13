@@ -7,6 +7,7 @@ package com.curso.acursospring.services;
 
 import com.curso.acursospring.domain.Categoria;
 import com.curso.acursospring.repositories.CategoriaRepository;
+import com.curso.acursospring.services.exceptions.ObjectNotFoundException;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,8 @@ public class CategoriaService {
     
     public Categoria buscar(Integer id){
         Optional<Categoria> obj = repo.findById(id);
-        return obj.orElse(null);
+        return obj.orElseThrow(() -> new ObjectNotFoundException(
+                "Objeto não encontrado id: "+ id +", Tipo: "+ Categoria.class.getName()));
     }
     
 }
